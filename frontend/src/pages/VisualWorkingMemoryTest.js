@@ -7,9 +7,24 @@ import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
-import { Button } from "@mui/material";
+import { borders } from "@mui/system";
+import { shadows } from "@mui/system";
+import { flexbox } from "@mui/system";
 
+import { updateParticipantVWM } from "../updateParticipant";
 import { getMemoryArray, allBlank } from "../VMWColor";
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === "dark" ? "#6C6B69" : "#6C6B69",
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: "center",
+  color: theme.palette.text.secondary,
+  borderRadius: 0,
+  borders: 0,
+  shadows: ["none"],
+  spacing: [110, 0, 0, 0],
+}));
 
 /** Correct answers */
 var answers = [];
@@ -41,30 +56,14 @@ var cue;
 /** Change this if you wish to use other keys */
 const KEYS = ["70", "f", "74", "j"];
 
-export function VisualWorkingMemoryTrainPage() {
-  const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === "dark" ? "#6C6B69" : "#6C6B69",
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-    borderRadius: 0,
-    borders: 0,
-    shadows: ["none"],
-    spacing: [110, 0, 0, 0],
-  }));
-
-  var differentText = "F: Different colors";
-  var sameText = "J: Same colors";
-  var startText = "Start";
-
-  /** History for route. */
-  const history = useHistory();
-
+export function VisualWorkingMemoryTestPage() {
   /** State */
   let [color, setColor] = useState(colors);
   let [colorTest, setColorTest] = useState(colors);
   let [count, setCount] = useState(1);
+
+  var differentText = "F: Different colors";
+  var sameText = "J: Same colors";
 
   function setFlags() {
     if (count > 0 && count <= 4) {
@@ -104,6 +103,7 @@ export function VisualWorkingMemoryTrainPage() {
       if (String(key) === "j") {
         result.push(false);
       }
+
       keyPressedFlag = false;
       trial++;
       alreadyHasColor = false;
@@ -121,26 +121,28 @@ export function VisualWorkingMemoryTrainPage() {
     }
   }
 
-  function onComplete(survey) {
-    console.log("VWM Training Score:", score);
+  async function onComplete() {
+    let uid = localStorage.getItem("uid");
+
+    updateParticipantVWM(score, uid);
+    console.log("VWM Score:", score);
   }
 
   useEventListener("keyup", handlerUp);
   useEventListener("keydown", handlerDown);
 
   // Number of repetitions of the exercise
-  let nTrials = 20;
+  let nTrials = 400;
 
   // Image sequence loop, n trials
   useEffect(() => {
     let cancel = false;
     const interval = setInterval(() => {
       if (cancel) return;
-      if (trial < nTrials && end) {
+      if (trial < nTrials) {
         setFlags();
-
         if (cueFlag) {
-          cue = cueSide;
+          cue = symbol;
           const newColor = allBlank("#6C6B69");
           setColor(newColor);
         } else {
@@ -152,7 +154,8 @@ export function VisualWorkingMemoryTrainPage() {
           if (!alreadyHasColor) {
             newColor = getMemoryArray();
             setColor(newColor[0]);
-            cueSide = newColor[4];
+            symbol = newColor[4];
+            side = newColor[5];
             localStorage.setItem("color", newColor[0]);
             alreadyHasColor = true;
             const newColorTest = newColor[1];
@@ -183,7 +186,7 @@ export function VisualWorkingMemoryTrainPage() {
           setCount(0);
         }
       } else {
-        // Training ended, create blank screen
+        // Test ended, create blank screen
         setColor(allBlank("#ffffff"));
 
         // Compute score
@@ -472,24 +475,6 @@ export function VisualWorkingMemoryTrainPage() {
         </Grid>
         <p className="keysText">{sameText}</p>
       </Box>
-      <div
-        style={{
-          display: "flex",
-          margin: "auto",
-          justifyContent: "center",
-        }}
-      >
-        <Button
-          variant="outlined"
-          size="large"
-          onClick={() => {
-            history.replace("/vwm-test/");
-          }}
-          className="buttonText"
-        >
-          {startText}
-        </Button>
-      </div>
     </div>
   );
 }

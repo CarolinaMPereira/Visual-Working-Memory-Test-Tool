@@ -50,5 +50,9 @@
     "jest-watch-typeahead": "^2.2.2",
     "node-polyfill-webpack-plugin": "^2.0.1",
     "react-app-rewired": "^2.2.1"
-  }
+  },
+  "description": "Visual Working Memory (VWM) is the short-term memory associated with cognitive tasks, namely the retention of visual information between eye fixations.\r This Visual Working Memory Test Tool is a ReactJS App that measures VWM through an Image Change Detection task adapted from [Fukuda and Vogel's study][1].",
+  "main": "config-overrides.js",
+  "author": "Carolina Pereira",
+  "license": "ISC"
 }
