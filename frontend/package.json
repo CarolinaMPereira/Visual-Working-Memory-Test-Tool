@@ -6,31 +6,16 @@
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@mui/material": "^5.11.12",
-    "@musicstory/react-bootstrap-table-next": "^1.0.5",
     "@use-it/event-listener": "^0.1.7",
     "bootstrap": "^3.3.7",
-    "d3": "^7.8.2",
-    "express": "^4.18.2",
-    "firebase": "^9.17.2",
     "jquery": "^3.6.4",
-    "jspdf": "^2.5.1",
-    "jspdf-autotable": "^3.5.28",
-    "pg": "^8.10.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-firebase-hooks": "^5.1.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^5.0.0",
-    "survey-analytics": "latest",
     "survey-core": "latest",
-    "survey-creator-core": "latest",
-    "survey-creator-react": "latest",
-    "survey-pdf": "latest",
-    "survey-react-ui": "latest",
     "surveyjs-widgets": "latest",
-    "uuid": "^9.0.0",
-    "uuidv4": "^6.2.13",
-    "xlsx": "^0.18.5"
+    "uuid": "^9.0.0"
   },
   "scripts": {
     "start": "react-app-rewired start",
@@ -45,9 +30,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "any-text": "^1.2.0",
     "jest-canvas-mock": "^2.3.1",
-    "jest-watch-typeahead": "^2.2.2",
     "node-polyfill-webpack-plugin": "^2.0.1",
     "react-app-rewired": "^2.2.1"
   },
