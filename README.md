@@ -27,7 +27,7 @@ cd Visual-Working-Memory-Test-Tool
 Initialize backend:
 
 ```bash
-cd backend
+cd Visual-Working-Memory-Test-Tool/backend
 npm i
 npm run start
 ```
@@ -35,7 +35,7 @@ npm run start
 Initialize frontend in another terminal tab:
 
 ```bash
-cd Visual-Working-Memory-Test-Tool
+cd Visual-Working-Memory-Test-Tool/frontend
 npm i
 npm run start
 ```
