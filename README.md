@@ -5,6 +5,12 @@ This Visual Working Memory Test Tool is a ReactJS App that measures VWM through 
 
 [1]: https://doi.org/10.1523/JNEUROSCI.2145-09.2009 "Human Variation in Overriding Attentional Capture (Fukuda and Vogel, 2009)"
 
+## Preview
+
+The image change detection test consists of a sequence of images with colored squares as shown bellow:
+
+<img src="frontend\src\img\vwm-instructions.gif" alt="VWM Test Tool Demo" height="300" style="display: block; margin: 0 auto"/>
+
 ## Run the application
 
 In order to save results in the PostgreSQL database, please create a `.env` file as shown in the sample provided.
