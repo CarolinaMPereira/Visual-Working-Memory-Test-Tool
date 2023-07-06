@@ -77,6 +77,9 @@ export default function PhantomEffectApp() {
 
         <div className="app-content">
           <Switch>
+            <Route exact path="/">
+              <IntroPage />
+            </Route>
             <Route path="/introduction">
               <IntroPage />
             </Route>

@@ -11,6 +11,6 @@ export function createParticipant(user_id) {
     })
     .then((data) => {
       console.log("Created participant with user id:", user_id);
-      alert(data);
+      alert("Created new participant.");
     });
 }

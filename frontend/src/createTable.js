@@ -11,6 +11,5 @@ export function createTable() {
     })
     .then((data) => {
       console.log("Created table participants.");
-      alert(data);
     });
 }
