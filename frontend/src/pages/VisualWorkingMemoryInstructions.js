@@ -13,7 +13,7 @@ export function VisualWorkingMemoryInstructionsPage() {
     'Click "Train" to start a set of training trials before starting. The training will begin immediately.';
   var startText =
     'If you have already trained, click "Start" to be evaluated. The test will begin immediately.';
-  var repText = "There will be 100 repetitions of this exercise.";
+  var repText = "There will be 400 repetitions of this exercise.";
   var trainBtn = "Train";
   var startBtn = "Start";
 
