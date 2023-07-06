@@ -9,7 +9,9 @@ This Visual Working Memory Test Tool is a ReactJS App that measures VWM through 
 
 The image change detection test consists of a sequence of images with colored squares as shown bellow:
 
-<img src="frontend\src\img\vwm-instructions.gif" alt="VWM Test Tool Demo" height="300" style="display: block; margin: 0 auto"/>
+<p align="center">
+    <img src="frontend\src\img\vwm-instructions.gif" alt="VWM Test Tool Demo" height="300" style="display: block; margin: 0 auto"/>
+</p>
 
 ## Run the application
 
