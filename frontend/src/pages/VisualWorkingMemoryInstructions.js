@@ -6,6 +6,7 @@ export function VisualWorkingMemoryInstructionsPage() {
   const history = useHistory();
 
   var instructionsTitle = "Please pay attention to the instructions below:";
+  var middleText = "The middle column of squares does not count. ";
   var trainText =
     "Due to the high speed of the image sequence, we recommend to perform a training set before the actual test.";
   var trainClick =
@@ -24,22 +25,49 @@ export function VisualWorkingMemoryInstructionsPage() {
           marginLeft: "auto",
           alignItems: "center",
           justifyContent: "center",
-          paddingTop: "1.5em",
-          paddingBottom: "1.5em",
+          paddingTop: "0.8em",
         }}
         className="header"
       >
         {instructionsTitle}
       </p>
-      <img
-        id="instructions-gif"
-        src={require("../img/vwm-instructions.gif")}
-        alt="instructions"
-        height={400}
-        style={{ display: "flex", margin: "auto" }}
-      />
+      <div
+        style={{
+          display: "flex",
+          marginLeft: "auto",
+          alignItems: "center",
+          justifyContent: "center",
+          paddingTop: "0.5em",
+        }}
+      >
+        <img
+          src={require("../img/1-Cue.png")}
+          alt="instructions"
+          height={300}
+          style={{ display: "flex", margin: "1%" }}
+        />
+        <img
+          src={require("../img/2-Memory_Array.png")}
+          alt="instructions"
+          height={300}
+          style={{ display: "flex", margin: "1%" }}
+        />
+        <img
+          src={require("../img/3-Retention.png")}
+          alt="instructions"
+          height={300}
+          style={{ display: "flex", margin: "1%" }}
+        />
+        <img
+          src={require("../img/4-Test_Array.png")}
+          alt="instructions"
+          height={300}
+          style={{ display: "flex", margin: "1%" }}
+        />
+      </div>
 
       <div className="instructionsText">
+        <p className="text">{middleText}</p>
         <p className="text">{trainText}</p>
         <p className="text">{trainClick}</p>
         <p className="text">{startText}</p>

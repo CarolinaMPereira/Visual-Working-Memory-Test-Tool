@@ -55,7 +55,7 @@ export function getMemoryArray(doIt = true) {
   var c = 0;
   var size = colorIx.length;
   var testColors = getTestArray(colors, size);
-  var leftSide = [0, 1, 2, 5, 6, 7, 10, 11, 12, 15, 16, 17, 20, 21, 22];
+  var leftSide = [0, 1, 5, 6, 10, 11, 15, 16, 20, 21];
   var rightSide = [3, 4, 8, 9, 13, 14, 18, 19, 23, 24];
 
   var leftChanged = false;
