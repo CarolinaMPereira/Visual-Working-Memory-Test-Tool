@@ -16,6 +16,17 @@ app.use(function (req, res, next) {
   next();
 });
 
+app.post("/table", (req, res) => {
+  participant_model
+    .createTable(req.body)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+
 app.get("/", (req, res) => {
   participant_model
     .getParticipant()

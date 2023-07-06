@@ -27,6 +27,7 @@ import { v4 as uuid } from "uuid";
 import * as widgets from "surveyjs-widgets";
 import { Button } from "@mui/material";
 import { createParticipant } from "./createParticipant";
+import { createTable } from "./createTable";
 
 window["$"] = window["jQuery"] = $;
 require("jquery-ui/ui/widgets/datepicker.js");
@@ -48,6 +49,7 @@ localStorage.setItem("uid", user_id);
 console.log("Your UID: ", user_id);
 
 export default function PhantomEffectApp() {
+  createTable();
   createParticipant(user_id);
 
   return (

@@ -8,6 +8,25 @@ const pool = new Pool({
   port: 5432,
 });
 
+const createTable = () => {
+  return new Promise(function (resolve, reject) {
+    pool.query(
+      `CREATE TABLE IF NOT EXISTS "participants" (
+        "user_id" VARCHAR(30),
+        "vwm_score" NUMERIC,
+        PRIMARY KEY ("user_id")
+      )`,
+      (error, results) => {
+        if (error) {
+          reject(error);
+          console.log(error);
+        }
+        resolve(results.rows);
+      }
+    );
+  });
+};
+
 const getParticipant = () => {
   return new Promise(function (resolve, reject) {
     pool.query(
@@ -58,6 +77,7 @@ const updateParticipantVWM = (body) => {
 };
 
 module.exports = {
+  createTable,
   getParticipant,
   createParticipant,
   updateParticipantVWM,
