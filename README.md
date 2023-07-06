@@ -1,3 +1,6 @@
+[![License: GPL-3.0](https://badgen.net/github/license/CarolinaMPereira/Visual-Working-Memory-Test-Tool)](https://www.gnu.org/licenses/gpl-3.0)
+[![Last release](https://badgen.net/github/release/CarolinaMPereira/Visual-Working-Memory-Test-Tool)](https://github.com/CarolinaMPereira/Visual-Working-Memory-Test-Tool)
+
 # Visual Working Memory Test Tool
 
 Visual Working Memory (VWM) is the short-term memory associated with cognitive tasks, namely the retention of visual information between eye fixations.
