@@ -1,5 +1,5 @@
 export function createParticipant(user_id) {
-  fetch("http://localhost:3001/participants", {
+  fetch("http://localhost:3001/VWM", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

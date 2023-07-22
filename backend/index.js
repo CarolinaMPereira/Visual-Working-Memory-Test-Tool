@@ -38,7 +38,7 @@ app.get("/", (req, res) => {
     });
 });
 
-app.post("/participants", (req, res) => {
+app.post("/VWM", (req, res) => {
   participant_model
     .createParticipant(req.body)
     .then((response) => {
@@ -49,7 +49,7 @@ app.post("/participants", (req, res) => {
     });
 });
 
-app.put("/participants/vwm_score", (req, res) => {
+app.put("/VWM/vwm_score", (req, res) => {
   participant_model
     .updateParticipantVWM(req.body)
     .then((response) => {

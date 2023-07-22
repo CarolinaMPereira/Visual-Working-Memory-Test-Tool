@@ -53,6 +53,11 @@ var [colors, test, left, right, symbol, side] = getMemoryArray();
 /** Arrow pointing left or right */
 var cue;
 
+/** Timestamps for test duration */
+var begin = 0;
+var finish = 0;
+var duration = 0;
+
 /** Change this if you wish to use other keys */
 const KEYS = ["70", "f", "74", "j"];
 
@@ -61,6 +66,10 @@ export function VisualWorkingMemoryTestPage() {
   let [color, setColor] = useState(colors);
   let [colorTest, setColorTest] = useState(colors);
   let [count, setCount] = useState(1);
+
+  useEffect(() => {
+    begin = new Date().getTime();
+  });
 
   var differentText = "F: Different colors";
   var sameText = "J: Same colors";
@@ -123,9 +132,10 @@ export function VisualWorkingMemoryTestPage() {
 
   async function onComplete() {
     let uid = localStorage.getItem("uid");
-
-    updateParticipantVWM(score, uid);
-    console.log("VWM Score:", score);
+    finish = new Date().getTime();
+    duration = (finish - begin) / 1000;
+    updateParticipantVWM(score, duration, uid);
+    console.log("VWM Score:", score, duration);
   }
 
   useEventListener("keyup", handlerUp);

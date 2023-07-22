@@ -11,9 +11,10 @@ const pool = new Pool({
 const createTable = () => {
   return new Promise(function (resolve, reject) {
     pool.query(
-      `CREATE TABLE IF NOT EXISTS "participants" (
-        "user_id" VARCHAR(30),
+      `CREATE TABLE IF NOT EXISTS vwm (
+        "user_id" VARCHAR(40),
         "vwm_score" NUMERIC,
+        "duration" NUMERIC,
         PRIMARY KEY ("user_id")
       )`,
       (error, results) => {
@@ -29,16 +30,13 @@ const createTable = () => {
 
 const getParticipant = () => {
   return new Promise(function (resolve, reject) {
-    pool.query(
-      "SELECT * FROM participants ORDER BY user_id ASC",
-      (error, results) => {
-        if (error) {
-          reject(error);
-          console.log(error);
-        }
-        resolve(results.rows);
+    pool.query("SELECT * FROM vwm ORDER BY user_id ASC", (error, results) => {
+      if (error) {
+        reject(error);
+        console.log(error);
       }
-    );
+      resolve(results.rows);
+    });
   });
 };
 
@@ -46,7 +44,7 @@ const createParticipant = (body) => {
   return new Promise(function (resolve, reject) {
     const { user_id } = body;
     pool.query(
-      "INSERT INTO participants (user_id) VALUES ($1) RETURNING *",
+      "INSERT INTO vwm (user_id) VALUES ($1) RETURNING *",
       [user_id],
       (error, results) => {
         if (error) {
@@ -61,10 +59,10 @@ const createParticipant = (body) => {
 
 const updateParticipantVWM = (body) => {
   return new Promise(function (resolve, reject) {
-    const { vwm_score, user_id } = body;
+    const { vwm_score, duration, user_id } = body;
     pool.query(
-      "UPDATE participants SET vwm_score = ($1) WHERE user_id = $2",
-      [vwm_score, user_id],
+      "UPDATE vwm SET vwm_score = ($1), duration = ($2) WHERE user_id = $3",
+      [vwm_score, duration, user_id],
       (error, results) => {
         if (error) {
           reject(error);
