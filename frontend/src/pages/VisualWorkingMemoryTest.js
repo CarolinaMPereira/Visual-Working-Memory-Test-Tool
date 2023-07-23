@@ -58,17 +58,13 @@ var begin = 0;
 var finish = 0;
 var duration = 0;
 
-/** Change this if you wish to use other keys */
-var KEYS = [
-  String(localStorage.getItem("sameKey")),
-  String(localStorage.getItem("diffKey")),
-];
-
 export function VisualWorkingMemoryTestPage() {
   /** State */
   let [color, setColor] = useState(colors);
   let [colorTest, setColorTest] = useState(colors);
   let [count, setCount] = useState(1);
+  let [sameKey, setSameKey] = useState(localStorage.getItem("sameKey"));
+  let [diffKey, setDiffKey] = useState(localStorage.getItem("diffKey"));
 
   useEffect(() => {
     begin = new Date().getTime();
@@ -109,12 +105,12 @@ export function VisualWorkingMemoryTestPage() {
 
   /** Key Up event */
   function handlerUp({ key }) {
-    if (KEYS.includes(String(key))) {
+    if (key === sameKey || key === diffKey) {
       /* Change this if you wish to use other keys*/
-      if (String(key) === KEYS[1]) {
+      if (String(key) === diffKey) {
         result.push(true);
       }
-      if (String(key) === KEYS[0]) {
+      if (String(key) === sameKey) {
         result.push(false);
       }
 
@@ -130,7 +126,7 @@ export function VisualWorkingMemoryTestPage() {
 
   /** Key Down event */
   function handlerDown({ key }) {
-    if (KEYS.includes(String(key))) {
+    if (key === sameKey || key === diffKey) {
       keyPressedFlag = true;
     }
   }

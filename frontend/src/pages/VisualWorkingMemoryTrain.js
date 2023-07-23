@@ -38,12 +38,6 @@ var [colors, test, left, right, symbol, side] = getMemoryArray();
 /** Arrow pointing left or right */
 var cue;
 
-/** Change this if you wish to use other keys */
-var KEYS = [
-  String(localStorage.getItem("sameKey")),
-  String(localStorage.getItem("diffKey")),
-];
-
 export function VisualWorkingMemoryTrainPage() {
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#6C6B69" : "#6C6B69",
@@ -70,6 +64,8 @@ export function VisualWorkingMemoryTrainPage() {
   let [color, setColor] = useState(colors);
   let [colorTest, setColorTest] = useState(colors);
   let [count, setCount] = useState(1);
+  let [sameKey, setSameKey] = useState(localStorage.getItem("sameKey"));
+  let [diffKey, setDiffKey] = useState(localStorage.getItem("diffKey"));
 
   function setFlags() {
     if (count > 0 && count <= 4) {
@@ -101,13 +97,12 @@ export function VisualWorkingMemoryTrainPage() {
 
   /** Key Up event */
   function handlerUp({ key }) {
-    if (KEYS.includes(String(key))) {
+    if (key === sameKey || key === diffKey) {
       /* Change this if you wish to use other keys*/
-      console.log("key", KEYS[0] === String(key));
-      if (String(key) === KEYS[1]) {
+      if (String(key) === diffKey) {
         result.push(true);
       }
-      if (String(key) === KEYS[0]) {
+      if (String(key) === sameKey) {
         result.push(false);
       }
       keyPressedFlag = false;
@@ -122,7 +117,7 @@ export function VisualWorkingMemoryTrainPage() {
 
   /** Key Down event */
   function handlerDown({ key }) {
-    if (KEYS.includes(String(key))) {
+    if (key === sameKey || key === diffKey) {
       keyPressedFlag = true;
     }
   }
