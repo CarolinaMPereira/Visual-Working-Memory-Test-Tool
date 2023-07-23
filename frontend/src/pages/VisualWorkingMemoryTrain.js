@@ -39,7 +39,10 @@ var [colors, test, left, right, symbol, side] = getMemoryArray();
 var cue;
 
 /** Change this if you wish to use other keys */
-const KEYS = ["70", "f", "74", "j"];
+var KEYS = [
+  String(localStorage.getItem("sameKey")),
+  String(localStorage.getItem("diffKey")),
+];
 
 export function VisualWorkingMemoryTrainPage() {
   const Item = styled(Paper)(({ theme }) => ({
@@ -54,8 +57,10 @@ export function VisualWorkingMemoryTrainPage() {
     spacing: [110, 0, 0, 0],
   }));
 
-  var differentText = "F: Different colors";
-  var sameText = "J: Same colors";
+  var differentText =
+    localStorage.getItem("diffKey").toUpperCase() + ": Different colors";
+  var sameText =
+    localStorage.getItem("sameKey").toUpperCase() + ": Same colors";
   var startText = "Start";
 
   /** History for route. */
@@ -98,10 +103,11 @@ export function VisualWorkingMemoryTrainPage() {
   function handlerUp({ key }) {
     if (KEYS.includes(String(key))) {
       /* Change this if you wish to use other keys*/
-      if (String(key) === "f") {
+      console.log("key", KEYS[0] === String(key));
+      if (String(key) === KEYS[1]) {
         result.push(true);
       }
-      if (String(key) === "j") {
+      if (String(key) === KEYS[0]) {
         result.push(false);
       }
       keyPressedFlag = false;
@@ -129,7 +135,7 @@ export function VisualWorkingMemoryTrainPage() {
   useEventListener("keydown", handlerDown);
 
   // Number of repetitions of the exercise
-  let nTrials = 20;
+  let nTrials = parseInt(localStorage.getItem("nTrainTrials"));
 
   // Image sequence loop, n trials
   useEffect(() => {

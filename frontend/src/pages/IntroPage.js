@@ -24,6 +24,9 @@ export function IntroPage() {
           study.
         </p>
         <p className="text">
+          Click on Settings to adjust the number of trials and the input keys.
+        </p>
+        <p className="text">
           Click on Test Instructions to watch a tutorial of the change detection
           test.
         </p>

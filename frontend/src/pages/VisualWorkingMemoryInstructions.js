@@ -13,9 +13,15 @@ export function VisualWorkingMemoryInstructionsPage() {
     'Click "Train" to start a set of training trials before starting. The training will begin immediately.';
   var startText =
     'If you have already trained, click "Start" to be evaluated. The test will begin immediately.';
-  var repText = "There will be 400 repetitions of this exercise.";
+  var repText =
+    "There will be " +
+    localStorage.getItem("nTestTrials") +
+    " repetitions of this exercise.";
   var trainBtn = "Train";
   var startBtn = "Start";
+
+  var sameKey = localStorage.getItem("sameKey").toUpperCase();
+  var diffKey = localStorage.getItem("diffKey").toUpperCase();
 
   return (
     <div>
@@ -35,35 +41,60 @@ export function VisualWorkingMemoryInstructionsPage() {
         style={{
           display: "flex",
           marginLeft: "auto",
-          alignItems: "center",
+          alignItems: "flex-end",
           justifyContent: "center",
           paddingTop: "0.5em",
         }}
       >
-        <img
-          src={require("../img/1-Cue.png")}
-          alt="instructions"
-          height={300}
-          style={{ display: "flex", margin: "1%" }}
-        />
-        <img
-          src={require("../img/2-Memory_Array.png")}
-          alt="instructions"
-          height={300}
-          style={{ display: "flex", margin: "1%" }}
-        />
-        <img
-          src={require("../img/3-Retention.png")}
-          alt="instructions"
-          height={300}
-          style={{ display: "flex", margin: "1%" }}
-        />
-        <img
-          src={require("../img/4-Test_Array.png")}
-          alt="instructions"
-          height={300}
-          style={{ display: "flex", margin: "1%" }}
-        />
+        <div>
+          <p className="instructionsCaptions">
+            Pay attention to the cue. The arrow indicates the side of the screen
+            you must pay attention to.
+          </p>
+          <img
+            src={require("../img/1-Cue.png")}
+            alt="instructions"
+            width={300}
+            style={{ display: "flex", paddingRight: "15px" }}
+          />
+        </div>
+        <div>
+          <p className="instructionsCaptions">
+            Memorize the colors of the squares on the side of the screen cued
+            before. This will flash very quickly.
+          </p>
+          <img
+            src={require("../img/2-Memory_Array.png")}
+            alt="instructions"
+            width={300}
+            style={{ display: "flex", paddingRight: "15px" }}
+          />
+        </div>
+        <div>
+          <p className="instructionsCaptions">
+            The screen will go blank for almost a second. Keep focusing on the
+            +.
+          </p>
+          <img
+            src={require("../img/3-Retention.png")}
+            alt="instructions"
+            width={300}
+            style={{ display: "flex", paddingRight: "15px" }}
+          />
+        </div>
+        <div>
+          <p className="instructionsCaptions">
+            Squares will show up again in the same places. Press "{diffKey}" if
+            the colors of the squares in the cued side of the screen changed
+            from the initial ones, or "{sameKey}" if they stayed the same.
+          </p>
+          <img
+            src={require("../img/4-Test_Array.png")}
+            alt="instructions"
+            width={300}
+            style={{ display: "flex", paddingRight: "15px" }}
+          />
+        </div>
       </div>
 
       <div className="instructionsText">

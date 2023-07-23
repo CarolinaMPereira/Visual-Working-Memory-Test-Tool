@@ -59,7 +59,10 @@ var finish = 0;
 var duration = 0;
 
 /** Change this if you wish to use other keys */
-const KEYS = ["70", "f", "74", "j"];
+var KEYS = [
+  String(localStorage.getItem("sameKey")),
+  String(localStorage.getItem("diffKey")),
+];
 
 export function VisualWorkingMemoryTestPage() {
   /** State */
@@ -71,8 +74,10 @@ export function VisualWorkingMemoryTestPage() {
     begin = new Date().getTime();
   });
 
-  var differentText = "F: Different colors";
-  var sameText = "J: Same colors";
+  var differentText =
+    localStorage.getItem("diffKey").toUpperCase() + ": Different colors";
+  var sameText =
+    localStorage.getItem("sameKey").toUpperCase() + ": Same colors";
 
   function setFlags() {
     if (count > 0 && count <= 4) {
@@ -106,10 +111,10 @@ export function VisualWorkingMemoryTestPage() {
   function handlerUp({ key }) {
     if (KEYS.includes(String(key))) {
       /* Change this if you wish to use other keys*/
-      if (String(key) === "f") {
+      if (String(key) === KEYS[1]) {
         result.push(true);
       }
-      if (String(key) === "j") {
+      if (String(key) === KEYS[0]) {
         result.push(false);
       }
 
@@ -142,7 +147,7 @@ export function VisualWorkingMemoryTestPage() {
   useEventListener("keydown", handlerDown);
 
   // Number of repetitions of the exercise
-  let nTrials = 400;
+  let nTrials = localStorage.getItem("nTestTrials");
 
   // Image sequence loop, n trials
   useEffect(() => {

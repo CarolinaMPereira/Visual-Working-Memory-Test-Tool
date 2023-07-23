@@ -5,6 +5,7 @@ import { IntroPage } from "./pages/IntroPage";
 import { VisualWorkingMemoryTestPage } from "./pages/VisualWorkingMemoryTest";
 import { VisualWorkingMemoryTrainPage } from "./pages/VisualWorkingMemoryTrain";
 import { VisualWorkingMemoryInstructionsPage } from "./pages/VisualWorkingMemoryInstructions";
+import { SettingsPage } from "./pages/SettingsPage";
 
 import "bootstrap/dist/css/bootstrap.css";
 import $ from "jquery";
@@ -48,6 +49,12 @@ const user_id = uuid();
 localStorage.setItem("uid", user_id);
 console.log("Your UID: ", user_id);
 
+/* populate with default values*/
+localStorage.setItem("nTestTrials", 400);
+localStorage.setItem("nTrainTrials", 20);
+localStorage.setItem("sameKey", "j");
+localStorage.setItem("diffKey", "f");
+
 export default function PhantomEffectApp() {
   createTable();
   createParticipant(user_id);
@@ -71,6 +78,9 @@ export default function PhantomEffectApp() {
               <li>
                 <Link to="/vwm-test/">Start Test</Link>
               </li>
+              <li>
+                <Link to="/settings/">Settings</Link>
+              </li>
             </ul>
           </div>
         </nav>
@@ -91,6 +101,9 @@ export default function PhantomEffectApp() {
             </Route>
             <Route path="/vwm-test">
               <VisualWorkingMemoryTestPage />
+            </Route>
+            <Route path="/settings">
+              <SettingsPage />
             </Route>
           </Switch>
         </div>

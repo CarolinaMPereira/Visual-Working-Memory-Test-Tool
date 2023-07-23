@@ -127,7 +127,7 @@ body {
   margin-top: 2em !important;
 }
 
-.buttonText{
+.buttonText {
   box-shadow: 0px 1px 2px rgb(0 0 0 / 15%) !important;
   background-color: #F8F8F8 !important;
   border-block-color: rgba(0, 0, 0, 0) !important;
@@ -142,19 +142,28 @@ body {
   font-family: Calibri !important;
 }
 
-.instructionsText{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-top: 1.5em;
-    padding-bottom: 1.5em;
-    margin-left: auto;
-    align-content: center;
-    flex-direction: column;
-    flex-wrap: wrap;
+.instructionsText {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 1.5em;
+  padding-bottom: 1.5em;
+  margin-left: auto;
+  align-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
 }
 
-.keysText{
+.instructionsCaptions {
+  width: 300px;
+  text-align: justify;
+  text-justify: inter-word !important;
+  padding-right: 15px;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: 16px;
+}
+
+.keysText {
   display: flex;
   width: 400px;
   font-size: 28px;
@@ -167,4 +176,41 @@ body {
 .table tbody tr:hover td,
 .table tbody tr:hover th {
   background-color: #ed7d3110;
+}
+
+.settingsTable {
+  display: flex;
+  justify-content: center;
+  padding-top: 1.5em;
+  padding-bottom: 1.5em;
+  margin: auto;
+  align-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin-top: 10em !important;
+  margin-bottom: auto !important;
+  background: #f8f8f8;
+  border-color: #e7e7e7;
+  border: 1px solid #e7e7e7;
+  border-radius: 4px;
+  width: 30%;
+}
+
+.settingsRow {
+  padding: 0.5em 1em;
+  font-size: 16px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #777777 !important;
+}
+
+.settingsRowText {
+  font-size: 16px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #777777 !important;
+}
+
+.settingsInput {
+  width: 7em;
+  text-align: center;
+  border: 1px solid #d1d1d1;
 }
