@@ -56,8 +56,9 @@ localStorage.setItem("sameKey", "j");
 localStorage.setItem("diffKey", "f");
 
 export default function PhantomEffectApp() {
-  createTable();
-  createParticipant(user_id);
+  createTable().then(() => {
+    createParticipant(user_id);
+  });
 
   return (
     <Router>
