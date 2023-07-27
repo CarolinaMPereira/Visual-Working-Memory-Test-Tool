@@ -6,6 +6,8 @@
 Visual Working Memory (VWM) is the short-term memory associated with cognitive tasks, namely the retention of visual information between eye fixations.
 This Visual Working Memory Test Tool is a ReactJS App that measures VWM through an Image Change Detection task adapted from [Luck and Vogel's study][1].
 
+This free tool allows to measure VWM through a customizable change detection test.
+
 [1]: https://doi.org/10.1038/36846 "The capacity of visual working memory for features and conjunctions. (Luck and Vogel, 1997)"
 
 ## Preview
