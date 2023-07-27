@@ -10,15 +10,15 @@ export function VisualWorkingMemoryInstructionsPage() {
   var trainText =
     "Due to the high speed of the image sequence, we recommend to perform a training set before the actual test.";
   var trainClick =
-    'Click "Train" to start a set of training trials before starting. The training will begin immediately.';
-  var startText =
-    'If you have already trained, click "Start" to be evaluated. The test will begin immediately.';
+    'Click "Train" to start a set of training trials before starting.';
+  var startText = 'If you have already trained, click "Start" to be evaluated.';
   var repText =
     "There will be " +
     localStorage.getItem("nTestTrials") +
     " repetitions of this exercise.";
   var trainBtn = "Train";
   var startBtn = "Start";
+  var delayText = "The test will begin 3 seconds after clicking the button.";
 
   var sameKey = localStorage.getItem("sameKey").toUpperCase();
   var diffKey = localStorage.getItem("diffKey").toUpperCase();
@@ -103,6 +103,7 @@ export function VisualWorkingMemoryInstructionsPage() {
         <p className="text">{trainClick}</p>
         <p className="text">{startText}</p>
         <p className="text">{repText}</p>
+        <p className="text">{delayText}</p>
         <div style={{ display: "inline" }}>
           <Button
             variant="outlined"

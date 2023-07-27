@@ -28,6 +28,7 @@ var cueFlag = false,
   memFlag = false,
   retFlag = false,
   testFlag = false,
+  waitFlag = true,
   keyPressedFlag = false,
   alreadyHasColor = false,
   end = true;
@@ -63,12 +64,16 @@ export function VisualWorkingMemoryTrainPage() {
   /** State */
   let [color, setColor] = useState(colors);
   let [colorTest, setColorTest] = useState(colors);
-  let [count, setCount] = useState(1);
+  let [count, setCount] = useState(-30);
   let [sameKey, setSameKey] = useState(localStorage.getItem("sameKey"));
   let [diffKey, setDiffKey] = useState(localStorage.getItem("diffKey"));
 
   function setFlags() {
+    if (count < 0) {
+      waitFlag = true;
+    }
     if (count > 0 && count <= 4) {
+      waitFlag = false;
       testFlag = false;
       retFlag = false;
       memFlag = false;
@@ -139,6 +144,11 @@ export function VisualWorkingMemoryTrainPage() {
       if (cancel) return;
       if (trial < nTrials && end) {
         setFlags();
+
+        if (waitFlag) {
+          const newColor = allBlank("#FFFFFF");
+          setColor(newColor);
+        }
 
         if (cueFlag) {
           cue = symbol;
@@ -297,7 +307,7 @@ export function VisualWorkingMemoryTrainPage() {
           <Grid item xs={1}>
             <Item
               style={{
-                color: "#ffffff",
+                color: "#FFFFFF",
                 backgroundColor: color[7],
                 height: "80px",
                 boxShadow: "none",
