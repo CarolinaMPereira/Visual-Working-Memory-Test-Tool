@@ -14,6 +14,8 @@ const createTable = () => {
       `CREATE TABLE IF NOT EXISTS vwm (
         "user_id" VARCHAR(40),
         "vwm_score" NUMERIC,
+        "size4_score" NUMERIC,
+        "size8_score" NUMERIC,
         "duration" NUMERIC,
         PRIMARY KEY ("user_id")
       )`,
@@ -59,10 +61,10 @@ const createParticipant = (body) => {
 
 const updateParticipantVWM = (body) => {
   return new Promise(function (resolve, reject) {
-    const { vwm_score, duration, user_id } = body;
+    const { vwm_score, size4_score, size8_score, duration, user_id } = body;
     pool.query(
-      "UPDATE vwm SET vwm_score = ($1), duration = ($2) WHERE user_id = $3",
-      [vwm_score, duration, user_id],
+      "UPDATE vwm SET vwm_score = ($1), size4_score = ($2), size8_score = ($3), duration = ($4) WHERE user_id = $5",
+      [vwm_score, size4_score, size8_score, duration, user_id],
       (error, results) => {
         if (error) {
           reject(error);

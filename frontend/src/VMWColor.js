@@ -81,13 +81,13 @@ export function getMemoryArray(doIt = true) {
       }
     }
 
-    return [res, testArray, leftChanged, rightChanged, cue];
+    return [res, testArray, leftChanged, rightChanged, cue, side, size];
   } else {
     for (let index = 0; index < 25; index++) {
       res.push(noColor);
       testArray.push(noColor);
     }
-    return [res, testArray, false, false, cue, side];
+    return [res, testArray, false, false, cue, side, size];
   }
 }
 

@@ -32,8 +32,13 @@ var answers = [];
 /** Answers given by the participant */
 var result = [];
 
+/** Number of squares per trial */
+var sizes = [];
+
 /** Final VWM score (number of correct answers) */
 var score = 0;
+var size4_score = 0;
+var size8_score = 0;
 
 /** Current trial */
 var trial = 0;
@@ -55,7 +60,7 @@ var [colors, test, left, right, symbol, side] = getMemoryArray();
 var cue;
 
 /** Timestamps for test duration */
-var begin = 0;
+var begin = new Date().getTime();
 var finish = 0;
 var duration = 0;
 
@@ -66,10 +71,6 @@ export function VisualWorkingMemoryTestPage() {
   let [count, setCount] = useState(-30);
   let [sameKey, setSameKey] = useState(localStorage.getItem("sameKey"));
   let [diffKey, setDiffKey] = useState(localStorage.getItem("diffKey"));
-
-  useEffect(() => {
-    begin = new Date().getTime();
-  });
 
   var differentText =
     localStorage.getItem("diffKey").toUpperCase() + ": Different colors";
@@ -139,8 +140,8 @@ export function VisualWorkingMemoryTestPage() {
   async function onComplete() {
     let uid = localStorage.getItem("uid");
     finish = new Date().getTime();
-    duration = (finish - begin) / 1000;
-    updateParticipantVWM(score, duration, uid);
+    duration = (finish - begin) / 1000 - 3;
+    updateParticipantVWM(score, size4_score, size8_score, duration, uid);
     console.log("VWM Score:", score, duration);
   }
 
@@ -187,6 +188,7 @@ export function VisualWorkingMemoryTestPage() {
             } else {
               answers.push(newColor[2]);
             }
+            sizes.push(newColor[6]);
           } else {
             var newColor = localStorage.getItem("color").split(",");
             setColor(newColor);
@@ -210,11 +212,12 @@ export function VisualWorkingMemoryTestPage() {
       } else {
         // Test ended, create blank screen
         setColor(allBlank("#ffffff"));
-
         // Compute score
         for (let i = 0; i < answers.length; i++) {
           if (answers[i] === result[i] && end) {
             score++;
+            if (sizes[i] === 4) size4_score++;
+            if (sizes[i] === 8) size8_score++;
           }
         }
         if (end) onComplete();
