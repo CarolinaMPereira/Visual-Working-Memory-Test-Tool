@@ -21,16 +21,27 @@ The image change detection test consists of a sequence of images with colored sq
 ## Saved Data
 
 ```user_id```: Participant's unique identifier.
+
 ```vwm_capacity```: Visual Working Memory capacity (K) resulting from K = S(H-F), where S is the set size, H is the hit rate and F is the false alarm rate.
+
 ```size4_score```: Number of correct answers for sets of size 4.
+
 ```size8_score```: Number of correct answers for sets of size 8.
+
 ```size4_hit_rate```: Proportion of trials where a change trial was correctly identified as a change trial for sets of size 4.
+
 ```size8_hit_rate```: Proportion of trials where a change trial was correctly identified as a change trial for sets of size 8.
+
 ```size4_false_alarm```: Proportion of trials where a no change trial was incorrectly identified as a change trial for sets of size 4.
+
 ```size8_false_alarm```: Proportion of trials where a no change trial was incorrectly identified as a change trial for sets of size 8.
+
 ```correct_answers```: Correct answer for each trial. True if it is a change trial, False otherwise.
+
 ```user_answers```: Answers given by the user. True if user identified a change trial, False otherwise.
-```set_sizes```: Sizes of the trials by order.
+
+```set_sizes```: Sizes of the trials.
+
 ```duration```: Time spent taking the test in seconds.
 
 ## Run the application
