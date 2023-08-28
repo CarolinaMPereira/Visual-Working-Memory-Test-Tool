@@ -39,6 +39,14 @@ var sizes = [];
 var score = 0;
 var size4_score = 0;
 var size8_score = 0;
+var size4HitRate = 0;
+var size8HitRate = 0;
+var size8FalseAlarm = 0;
+var size4FalseAlarm = 0;
+var totalChange4 = 0;
+var totalNoChange4 = 0;
+var totalChange8 = 0;
+var totalNoChange8 = 0;
 
 /** Current trial */
 var trial = 0;
@@ -140,9 +148,38 @@ export function VisualWorkingMemoryTestPage() {
   async function onComplete() {
     let uid = localStorage.getItem("uid");
     finish = new Date().getTime();
+    if (totalChange4 !== 0) size4HitRate = size4HitRate / totalChange4;
+    if (totalChange8 !== 0) size8HitRate = size8HitRate / totalChange8;
+    if (totalNoChange4 !== 0)
+      size4FalseAlarm = size4FalseAlarm / totalNoChange4;
+    if (totalNoChange8 !== 0)
+      size8FalseAlarm = size8FalseAlarm / totalNoChange8;
+    score =
+      4 * (size4HitRate - size4FalseAlarm) +
+      8 * (size8HitRate - size8FalseAlarm);
     duration = (finish - begin) / 1000 - 3;
-    updateParticipantVWM(score, size4_score, size8_score, duration, uid);
-    console.log("VWM Score:", score, duration);
+    updateParticipantVWM(
+      score,
+      size4_score,
+      size8_score,
+      size4HitRate,
+      size4FalseAlarm,
+      size8HitRate,
+      size8FalseAlarm,
+      answers,
+      result,
+      sizes,
+      duration,
+      uid
+    );
+    console.log(
+      "VWM Score:",
+      size4_score + size8_score,
+      "\nVWM Capacity:",
+      score,
+      "\nTime Taken:",
+      duration
+    );
   }
 
   useEventListener("keyup", handlerUp);
@@ -214,10 +251,31 @@ export function VisualWorkingMemoryTestPage() {
         setColor(allBlank("#ffffff"));
         // Compute score
         for (let i = 0; i < answers.length; i++) {
+          if (answers[i] && sizes[i] === 4) totalChange4++;
+          if (!answers[i] && sizes[i] === 4) totalNoChange4++;
+          if (answers[i] && sizes[i] === 8) totalChange8++;
+          if (!answers[i] && sizes[i] === 8) totalNoChange8++;
+
           if (answers[i] === result[i] && end) {
-            score++;
-            if (sizes[i] === 4) size4_score++;
-            if (sizes[i] === 8) size8_score++;
+            if (sizes[i] === 4) {
+              if (result[i] === true) {
+                size4HitRate++;
+              }
+              size4_score++;
+            }
+            if (sizes[i] === 8) {
+              if (result[i] === true) {
+                size8HitRate++;
+              }
+              size8_score++;
+            }
+          } else if (answers[i] !== result[i] && answers[i] === false && end) {
+            if (sizes[i] === 4) {
+              size4FalseAlarm++;
+            }
+            if (sizes[i] === 8) {
+              size8FalseAlarm++;
+            }
           }
         }
         if (end) onComplete();

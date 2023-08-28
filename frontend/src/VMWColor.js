@@ -32,7 +32,7 @@ function getSize() {
 
 function decide() {
   let flag = Math.random();
-  return flag <= 0.6 ? true : false;
+  return flag <= 0.5 ? true : false;
 }
 
 function getSquaresToColorize() {

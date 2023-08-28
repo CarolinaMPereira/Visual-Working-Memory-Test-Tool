@@ -13,9 +13,16 @@ const createTable = () => {
     pool.query(
       `CREATE TABLE IF NOT EXISTS vwm (
         "user_id" VARCHAR(40),
-        "vwm_score" NUMERIC,
+        "vwm_capacity" NUMERIC,
         "size4_score" NUMERIC,
         "size8_score" NUMERIC,
+        "size4_hit_rate" NUMERIC,
+        "size4_false_alarm" NUMERIC,
+        "size8_hit_rate" NUMERIC,
+        "size8_false_alarm" NUMERIC,
+        "correct_answers" VARCHAR[],
+        "user_answers" VARCHAR[],
+        "set_sizes" NUMERIC[],
         "duration" NUMERIC,
         PRIMARY KEY ("user_id")
       )`,
@@ -61,10 +68,36 @@ const createParticipant = (body) => {
 
 const updateParticipantVWM = (body) => {
   return new Promise(function (resolve, reject) {
-    const { vwm_score, size4_score, size8_score, duration, user_id } = body;
+    const {
+      vwm_score,
+      size4_score,
+      size8_score,
+      size4_hit_rate,
+      size4_false_alarm,
+      size8_hit_rate,
+      size8_false_alarm,
+      correct_answers,
+      user_answers,
+      set_sizes,
+      duration,
+      user_id,
+    } = body;
     pool.query(
-      "UPDATE vwm SET vwm_score = ($1), size4_score = ($2), size8_score = ($3), duration = ($4) WHERE user_id = $5",
-      [vwm_score, size4_score, size8_score, duration, user_id],
+      "UPDATE vwm SET vwm_capacity = ($1), size4_score = ($2), size8_score = ($3), size4_hit_rate = ($4), size4_false_alarm = ($5), size8_hit_rate = ($6), size8_false_alarm = ($7), correct_answers = ($8), user_answers = ($9), set_sizes = ($10), duration = ($11) WHERE user_id = $12",
+      [
+        vwm_score,
+        size4_score,
+        size8_score,
+        size4_hit_rate,
+        size4_false_alarm,
+        size8_hit_rate,
+        size8_false_alarm,
+        correct_answers,
+        user_answers,
+        set_sizes,
+        duration,
+        user_id,
+      ],
       (error, results) => {
         if (error) {
           reject(error);
