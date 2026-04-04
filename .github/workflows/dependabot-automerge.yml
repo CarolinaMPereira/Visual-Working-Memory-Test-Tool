@@ -44,7 +44,7 @@ jobs:
       contents: write
     steps:
       - name: Auto-approve Dependabot PR
-        uses: hmarr/auto-approve-action@v2.0.0
+        uses: hmarr/auto-approve-action@v4.0.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
