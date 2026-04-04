@@ -32,21 +32,8 @@ var answers = [];
 /** Answers given by the participant */
 var result = [];
 
-/** Number of squares per trial */
-var sizes = [];
-
 /** Final VWM score (number of correct answers) */
 var score = 0;
-var size4_score = 0;
-var size8_score = 0;
-var size4HitRate = 0;
-var size8HitRate = 0;
-var size8FalseAlarm = 0;
-var size4FalseAlarm = 0;
-var totalChange4 = 0;
-var totalNoChange4 = 0;
-var totalChange8 = 0;
-var totalNoChange8 = 0;
 
 /** Current trial */
 var trial = 0;
@@ -56,7 +43,6 @@ var cueFlag = false,
   memFlag = false,
   retFlag = false,
   testFlag = false,
-  waitFlag = true,
   keyPressedFlag = false,
   alreadyHasColor = false,
   end = true;
@@ -67,30 +53,20 @@ var [colors, test, left, right, symbol, side] = getMemoryArray();
 /** Arrow pointing left or right */
 var cue;
 
-/** Timestamps for test duration */
-var begin = new Date().getTime();
-var finish = 0;
-var duration = 0;
+/** Change this if you wish to use other keys */
+const KEYS = ["70", "f", "74", "j"];
 
 export function VisualWorkingMemoryTestPage() {
   /** State */
   let [color, setColor] = useState(colors);
   let [colorTest, setColorTest] = useState(colors);
-  let [count, setCount] = useState(-30);
-  // Display labels read directly from localStorage so updates apply immediately
-  var differentText = (
-    (localStorage.getItem("diffKey") || "f").toUpperCase() + ": Different colors"
-  );
-  var sameText = (
-    (localStorage.getItem("sameKey") || "j").toUpperCase() + ": Same colors"
-  );
+  let [count, setCount] = useState(1);
+
+  var differentText = "F: Different colors";
+  var sameText = "J: Same colors";
 
   function setFlags() {
-    if (count < 0) {
-      waitFlag = true;
-    }
     if (count > 0 && count <= 4) {
-      waitFlag = false;
       testFlag = false;
       retFlag = false;
       memFlag = false;
@@ -119,14 +95,12 @@ export function VisualWorkingMemoryTestPage() {
 
   /** Key Up event */
   function handlerUp({ key }) {
-    const k = String(key).toLowerCase();
-    const storedSame = (localStorage.getItem("sameKey") || "j").toLowerCase();
-    const storedDiff = (localStorage.getItem("diffKey") || "f").toLowerCase();
-    if (k === storedSame || k === storedDiff) {
-      if (k === storedDiff) {
+    if (KEYS.includes(String(key))) {
+      /* Change this if you wish to use other keys*/
+      if (String(key) === "f") {
         result.push(true);
       }
-      if (k === storedSame) {
+      if (String(key) === "j") {
         result.push(false);
       }
 
@@ -142,56 +116,23 @@ export function VisualWorkingMemoryTestPage() {
 
   /** Key Down event */
   function handlerDown({ key }) {
-    const k = String(key).toLowerCase();
-    const storedSame = (localStorage.getItem("sameKey") || "j").toLowerCase();
-    const storedDiff = (localStorage.getItem("diffKey") || "f").toLowerCase();
-    if (k === storedSame || k === storedDiff) {
+    if (KEYS.includes(String(key))) {
       keyPressedFlag = true;
     }
   }
 
   async function onComplete() {
     let uid = localStorage.getItem("uid");
-    finish = new Date().getTime();
-    if (totalChange4 !== 0) size4HitRate = size4HitRate / totalChange4;
-    if (totalChange8 !== 0) size8HitRate = size8HitRate / totalChange8;
-    if (totalNoChange4 !== 0)
-      size4FalseAlarm = size4FalseAlarm / totalNoChange4;
-    if (totalNoChange8 !== 0)
-      size8FalseAlarm = size8FalseAlarm / totalNoChange8;
-    score =
-      4 * (size4HitRate - size4FalseAlarm) +
-      8 * (size8HitRate - size8FalseAlarm);
-    duration = (finish - begin) / 1000 - 3;
-    updateParticipantVWM(
-      score,
-      size4_score,
-      size8_score,
-      size4HitRate,
-      size4FalseAlarm,
-      size8HitRate,
-      size8FalseAlarm,
-      answers,
-      result,
-      sizes,
-      duration,
-      uid
-    );
-    console.log(
-      "VWM Score:",
-      size4_score + size8_score,
-      "\nVWM Capacity:",
-      score,
-      "\nTime Taken:",
-      duration
-    );
+
+    updateParticipantVWM(score, uid);
+    console.log("VWM Score:", score);
   }
 
   useEventListener("keyup", handlerUp);
   useEventListener("keydown", handlerDown);
 
   // Number of repetitions of the exercise
-  let nTrials = localStorage.getItem("nTestTrials");
+  let nTrials = 400;
 
   // Image sequence loop, n trials
   useEffect(() => {
@@ -200,12 +141,6 @@ export function VisualWorkingMemoryTestPage() {
       if (cancel) return;
       if (trial < nTrials) {
         setFlags();
-
-        if (waitFlag) {
-          const newColor = allBlank("#FFFFFF");
-          setColor(newColor);
-        }
-
         if (cueFlag) {
           cue = symbol;
           const newColor = allBlank("#6C6B69");
@@ -230,7 +165,6 @@ export function VisualWorkingMemoryTestPage() {
             } else {
               answers.push(newColor[2]);
             }
-            sizes.push(newColor[6]);
           } else {
             var newColor = localStorage.getItem("color").split(",");
             setColor(newColor);
@@ -254,33 +188,11 @@ export function VisualWorkingMemoryTestPage() {
       } else {
         // Test ended, create blank screen
         setColor(allBlank("#ffffff"));
+
         // Compute score
         for (let i = 0; i < answers.length; i++) {
-          if (answers[i] && sizes[i] === 4) totalChange4++;
-          if (!answers[i] && sizes[i] === 4) totalNoChange4++;
-          if (answers[i] && sizes[i] === 8) totalChange8++;
-          if (!answers[i] && sizes[i] === 8) totalNoChange8++;
-
           if (answers[i] === result[i] && end) {
-            if (sizes[i] === 4) {
-              if (result[i] === true) {
-                size4HitRate++;
-              }
-              size4_score++;
-            }
-            if (sizes[i] === 8) {
-              if (result[i] === true) {
-                size8HitRate++;
-              }
-              size8_score++;
-            }
-          } else if (answers[i] !== result[i] && answers[i] === false && end) {
-            if (sizes[i] === 4) {
-              size4FalseAlarm++;
-            }
-            if (sizes[i] === 8) {
-              size8FalseAlarm++;
-            }
+            score++;
           }
         }
         if (end) onComplete();

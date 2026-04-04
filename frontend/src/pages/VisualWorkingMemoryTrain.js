@@ -28,7 +28,6 @@ var cueFlag = false,
   memFlag = false,
   retFlag = false,
   testFlag = false,
-  waitFlag = true,
   keyPressedFlag = false,
   alreadyHasColor = false,
   end = true;
@@ -38,6 +37,9 @@ var [colors, test, left, right, symbol, side] = getMemoryArray();
 
 /** Arrow pointing left or right */
 var cue;
+
+/** Change this if you wish to use other keys */
+const KEYS = ["70", "f", "74", "j"];
 
 export function VisualWorkingMemoryTrainPage() {
   const Item = styled(Paper)(({ theme }) => ({
@@ -52,10 +54,8 @@ export function VisualWorkingMemoryTrainPage() {
     spacing: [110, 0, 0, 0],
   }));
 
-  var differentText =
-    localStorage.getItem("diffKey").toUpperCase() + ": Different colors";
-  var sameText =
-    localStorage.getItem("sameKey").toUpperCase() + ": Same colors";
+  var differentText = "F: Different colors";
+  var sameText = "J: Same colors";
   var startText = "Start";
 
   /** History for route. */
@@ -64,16 +64,10 @@ export function VisualWorkingMemoryTrainPage() {
   /** State */
   let [color, setColor] = useState(colors);
   let [colorTest, setColorTest] = useState(colors);
-  let [count, setCount] = useState(-30);
-  let [sameKey, setSameKey] = useState(localStorage.getItem("sameKey"));
-  let [diffKey, setDiffKey] = useState(localStorage.getItem("diffKey"));
+  let [count, setCount] = useState(1);
 
   function setFlags() {
-    if (count < 0) {
-      waitFlag = true;
-    }
     if (count > 0 && count <= 4) {
-      waitFlag = false;
       testFlag = false;
       retFlag = false;
       memFlag = false;
@@ -102,12 +96,12 @@ export function VisualWorkingMemoryTrainPage() {
 
   /** Key Up event */
   function handlerUp({ key }) {
-    if (key === sameKey || key === diffKey) {
+    if (KEYS.includes(String(key))) {
       /* Change this if you wish to use other keys*/
-      if (String(key) === diffKey) {
+      if (String(key) === "f") {
         result.push(true);
       }
-      if (String(key) === sameKey) {
+      if (String(key) === "j") {
         result.push(false);
       }
       keyPressedFlag = false;
@@ -122,7 +116,7 @@ export function VisualWorkingMemoryTrainPage() {
 
   /** Key Down event */
   function handlerDown({ key }) {
-    if (key === sameKey || key === diffKey) {
+    if (KEYS.includes(String(key))) {
       keyPressedFlag = true;
     }
   }
@@ -135,7 +129,7 @@ export function VisualWorkingMemoryTrainPage() {
   useEventListener("keydown", handlerDown);
 
   // Number of repetitions of the exercise
-  let nTrials = parseInt(localStorage.getItem("nTrainTrials"));
+  let nTrials = 20;
 
   // Image sequence loop, n trials
   useEffect(() => {
@@ -144,11 +138,6 @@ export function VisualWorkingMemoryTrainPage() {
       if (cancel) return;
       if (trial < nTrials && end) {
         setFlags();
-
-        if (waitFlag) {
-          const newColor = allBlank("#FFFFFF");
-          setColor(newColor);
-        }
 
         if (cueFlag) {
           cue = symbol;
@@ -307,7 +296,7 @@ export function VisualWorkingMemoryTrainPage() {
           <Grid item xs={1}>
             <Item
               style={{
-                color: "#FFFFFF",
+                color: "#ffffff",
                 backgroundColor: color[7],
                 height: "80px",
                 boxShadow: "none",
