@@ -77,13 +77,13 @@ export function VisualWorkingMemoryTestPage() {
   let [color, setColor] = useState(colors);
   let [colorTest, setColorTest] = useState(colors);
   let [count, setCount] = useState(-30);
-  let [sameKey, setSameKey] = useState(localStorage.getItem("sameKey"));
-  let [diffKey, setDiffKey] = useState(localStorage.getItem("diffKey"));
-
-  var differentText =
-    localStorage.getItem("diffKey").toUpperCase() + ": Different colors";
-  var sameText =
-    localStorage.getItem("sameKey").toUpperCase() + ": Same colors";
+  // Display labels read directly from localStorage so updates apply immediately
+  var differentText = (
+    (localStorage.getItem("diffKey") || "f").toUpperCase() + ": Different colors"
+  );
+  var sameText = (
+    (localStorage.getItem("sameKey") || "j").toUpperCase() + ": Same colors"
+  );
 
   function setFlags() {
     if (count < 0) {
@@ -119,12 +119,14 @@ export function VisualWorkingMemoryTestPage() {
 
   /** Key Up event */
   function handlerUp({ key }) {
-    if (key === sameKey || key === diffKey) {
-      /* Change this if you wish to use other keys*/
-      if (String(key) === diffKey) {
+    const k = String(key).toLowerCase();
+    const storedSame = (localStorage.getItem("sameKey") || "j").toLowerCase();
+    const storedDiff = (localStorage.getItem("diffKey") || "f").toLowerCase();
+    if (k === storedSame || k === storedDiff) {
+      if (k === storedDiff) {
         result.push(true);
       }
-      if (String(key) === sameKey) {
+      if (k === storedSame) {
         result.push(false);
       }
 
@@ -140,7 +142,10 @@ export function VisualWorkingMemoryTestPage() {
 
   /** Key Down event */
   function handlerDown({ key }) {
-    if (key === sameKey || key === diffKey) {
+    const k = String(key).toLowerCase();
+    const storedSame = (localStorage.getItem("sameKey") || "j").toLowerCase();
+    const storedDiff = (localStorage.getItem("diffKey") || "f").toLowerCase();
+    if (k === storedSame || k === storedDiff) {
       keyPressedFlag = true;
     }
   }

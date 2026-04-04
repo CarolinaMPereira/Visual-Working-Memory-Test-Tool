@@ -181,19 +181,17 @@ body {
 .settingsTable {
   display: flex;
   justify-content: center;
-  padding-top: 1.5em;
-  padding-bottom: 1.5em;
-  margin: auto;
+  padding: 1.25em;
+  margin: 3em auto;
   align-content: center;
   flex-direction: column;
   flex-wrap: wrap;
-  margin-top: 10em !important;
-  margin-bottom: auto !important;
   background: #f8f8f8;
   border-color: #e7e7e7;
   border: 1px solid #e7e7e7;
-  border-radius: 4px;
-  width: 30%;
+  border-radius: 6px;
+  width: 360px;
+  max-width: 90%;
 }
 
 .settingsRow {
