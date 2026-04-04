@@ -14,7 +14,7 @@
     "react-router-dom": "^5.2.0",
     "survey-core": "latest",
     "surveyjs-widgets": "latest",
-    "uuid": "^9.0.0"
+    "uuid": "^13.0.0"
   },
   "scripts": {
     "start": "react-app-rewired start",
