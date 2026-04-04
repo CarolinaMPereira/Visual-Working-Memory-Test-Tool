@@ -9114,9 +9114,9 @@ supports-preserve-symlinks-flag@^1.0.0:
   integrity sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==
 
 survey-core@latest:
-  version "1.9.77"
-  resolved "https://registry.npmjs.org/survey-core/-/survey-core-1.9.77.tgz"
-  integrity sha512-340q22SokKZAp9OjxDKG/Gkzo5j4EU3QXfsoxjEr2gCutWXyPkY3CLf49/g311Jm72Jtbe1nfecoOk0IBn1c2w==
+  version "2.5.18"
+  resolved "https://registry.yarnpkg.com/survey-core/-/survey-core-2.5.18.tgz#b03a9fb208bda5ecef61169be7afcb428ae8d006"
+  integrity sha512-eorlj28E2GZtaH6q/7k1LQZvOlsWHwpElDRxldTAw8pFj3jEqQvYK3B8EQxVqCeX6oO31BLOZMdFtZvm4rq3bg==
 
 surveyjs-widgets@latest:
   version "1.9.77"
