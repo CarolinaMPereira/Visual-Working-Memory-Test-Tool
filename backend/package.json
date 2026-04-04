@@ -15,7 +15,7 @@
     "pg": "^8.10.0"
   },
   "devDependencies": {
-    "jest": "^29.6.1"
+    "jest": "^30.3.0"
   },
   "description": "database for vwm test tool"
 }
