@@ -4,6 +4,25 @@ updates:
     directory: "/frontend"
     schedule:
       interval: "daily"
+    ignore:
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-major"
+
+  - package-ecosystem: "npm"
+    directory: "/backend"
+    schedule:
+      interval: "daily"
+    ignore:
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-major"
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/frontend"
+    schedule:
+      interval: "daily"
     open-pull-requests-limit: 10
 
   - package-ecosystem: "npm"
